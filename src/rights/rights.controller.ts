@@ -1,6 +1,7 @@
 import { Controller, Post, Body, UseGuards, Request, ForbiddenException } from '@nestjs/common';
 import { RightsService } from './rights.service';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateRightsDto } from './dto/create-rights.dto';
 
 @Controller('rights')
 export class RightsController {
@@ -9,7 +10,7 @@ export class RightsController {
     // Single endpoint for upserting user rights
     @UseGuards(AuthGuard('jwt'))
     @Post()
-    async upsertUserRights(@Body() rightsData: any, @Request() req: any) {
+    async upsertUserRights(@Body() rightsData: CreateRightsDto, @Request() req: any) {
         const adminId = req.user.userId;
 
         // Check if the user has permission to assign or modify rights
